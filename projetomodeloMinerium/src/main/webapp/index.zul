@@ -1,0 +1,169 @@
+<zk>
+<?page title="XXXXYYYYYY"?>
+<style src="css/padrao.css" />
+<?taglib uri="/WEB-INF/security.tld" prefix="sec"?>
+	
+	<vlayout>
+		<window id="principal" apply="br.com.projetomodelo.controle.WindowIntroducaoModelo" width="100%" height="60px" border="1">
+			<div class="navbar navbar-default navbar-static-top cores-menu-barra">
+				
+				<a id="textobarra" class="navbar-brand logo" href="/">XXXXYYYYYY</a>
+				<div class="navbar-header">
+		          <button sclass="navbar-toggle collapsed" xmlns:w="client" 
+		          	w:onClick="if ($('$usuariobarra').is(':visible')){$('$usuariobarra').slideUp(300);$('$menubarra').slideUp(300);} else {$('$usuariobarra').slideDown(300);$('$menubarra').slideDown(300);}">
+		          	...
+		          </button>
+		        </div>
+				
+				<div id="menubarra" class="navbar-collapse collapse cores-menu-barra overflow-menu-barra" style="float:left">
+					<menubar id="menubar">
+						<menuitem id="menuConcursos" label="Concursos" visible="true" onClick="classecontrole.abrir(self)" >
+							<custom-attributes urlcasodeuso="aluno/usuario.zul"/>
+			            </menuitem>
+						<menuitem id="menuProvas" label="Provas" visible="true" onClick="classecontrole.abrir(self)" >
+							<custom-attributes urlcasodeuso="aluno/usuario.zul"/>
+			            </menuitem>
+						<menuitem id="menuPlanoEstudo" label="Plano de Estudo" visible="true" if="${sec:isAllGranted('RESTRITO')}" />
+					</menubar>
+				</div>
+				
+				<div id="usuariobarra" class="navbar-collapse collapse cores-menu-barra" style="float:right" if="${sec:isAllGranted('LOGADO')}">
+					<menubar>
+						<menu id="menuUsuario" label="${sessionScope.usuarioAutenticado.nome}" visible="true" image="./imagem/seguranca.png" width="50px">
+							<menupopup>
+								<menuitem label="Cadastrar Usuário" onClick="classecontrole.abrir(self)">
+									<custom-attributes urlcasodeuso="aluno/cadastrarusuario.zul"/>
+			            		</menuitem>
+			            		<menuitem label="Usuário" onClick="classecontrole.abrir(self)">
+									<custom-attributes urlcasodeuso="aluno/usuario.zul"/>
+			            		</menuitem>
+			            		<menuitem label="Gráfico" onClick="classecontrole.montaGrafico()" />
+			            		<menuitem label="Calendário" onClick="classecontrole.abrir(self)">
+			            			<custom-attributes urlcasodeuso="aluno/calendario.zul"/>
+			            		</menuitem>
+			            		<menuitem label="Teste" onClick="alert(self.label)" />
+			            		<menuitem label="Sair" onClick="classecontrole.logout()" />
+			            	</menupopup>
+						</menu>
+					</menubar>
+				</div>
+				<div class="navbar-collapse collapse cores-menu-barra" style="float:right" if="${!sec:isAllGranted('LOGADO')}">
+					<a class="navbar-brand btnLogin" href="#" onClick="classecontrole.abrirTelaLogin()">Login</a>
+				</div>
+				<div class="navbar-collapse collapse cores-menu-barra" style="float:right">
+					<a class="navbar-brand" href="#">Pesquisa</a>
+				</div>
+				<include id="popup" src="" popup="true" mode="defer" width="99%" />
+			</div>
+
+	
+			<vlayout id="meio">
+        		<include id="include_introducao" src="./introducao.zul"/>
+        	</vlayout>
+	
+			<div class="navbar navbar-default navbar-static-top cores-menu-barra" >
+				<hlayout class="navbar-brand">
+					<vlayout class="sitemap">
+						<label value="Lorem ipsum do" />
+						<label value="Lorem ipsum dolor sit ame" />
+						<label value="Lorem ipsum dosit ame" />
+						<label value="Lorem ilor sit ame" />
+						<label value="Lorem ior sit ame" />
+						<label value="Lorem im dolor sit ame" />
+					</vlayout>
+					<vlayout class="sitemap">
+						<label value="Lorem im dolor sit ame" />
+						<label value="Lorem im doit ame" />
+						<label value="L dolor sit ame" />
+						<label value="Lpsum dolor sit ame" />
+					</vlayout>
+				</hlayout>
+        	</div>
+	
+		</window>
+	</vlayout>
+
+
+
+
+	<!-- borderlayout height="100%">
+	
+        <north border="none" height="110px" style="background-color:transparent">
+            <window id="principal" apply="br.gov.prodigio.controle.WindowPrincipalUnsecured" width="100%" height="100%" border="1" style="background-color:transparent">
+				<div class="navbar navbar-default navbar-static-top cores-menu-barra" >
+					
+					<a id="textobarra" class="navbar-brand logo" href="/">XXXXYYYYYY</a>
+					<div class="navbar-header">
+			          <button sclass="navbar-toggle collapsed" xmlns:w="client" 
+			          	w:onClick="if ($('$menubarra').is(':visible')){$('$menubarra').slideUp(500);} else {$('$menubarra').slideDown(500);}">
+			          	...
+			          </button>
+			        </div>
+					
+					<div id="menubarra" class="navbar-collapse collapse cores-menu-barra overflow-menu-barra" style="float:left">
+						<menubar id="menubar">
+							<menuitem id="menuConcursos" label="Concursos" visible="true" onClick="classecontrole.abrir(self)" >
+								<custom-attributes urlcasodeuso="aluno/usuario.zul"/>
+				            </menuitem>
+							<menuitem id="menuProvas" label="Provas" visible="true" onClick="classecontrole.abrir(self)" >
+								<custom-attributes urlcasodeuso="aluno/usuario.zul"/>
+				            </menuitem>
+							<menuitem id="menuPlanoEstudo" label="Plano de Estudo" visible="true" />
+						</menubar>
+					</div>
+					
+					<div class="navbar-collapse collapse cores-menu-barra" style="float:right">
+						<menubar>
+							<menu id="menuUsuario" label="" visible="true" image="./imagem/seguranca.png" width="50px">
+								<menupopup>
+				            		<menuitem label="Usuário" onClick="classecontrole.abrir(self)">
+										<custom-attributes urlcasodeuso="aluno/usuario.zul"/>
+				            		</menuitem>
+				            		<menuitem label="Gráfico" onClick="classecontrole.montaGrafico()" />
+				            		<menuitem label="Calendário" onClick="classecontrole.abrir(self)">
+				            			<custom-attributes urlcasodeuso="aluno/calendario.zul"/>
+				            		</menuitem>
+				            		<menuitem label="Teste" onClick="alert(self.label)" />
+				            		<menuitem label="Sair" onClick="classecontrole.logout()" />
+				            	</menupopup>
+							</menu>
+						</menubar>
+					</div>
+					<div class="navbar-collapse collapse cores-menu-barra" style="float:right">
+						<a class="navbar-brand" href="#">Pesquisa</a>
+					</div>
+					<include id="popup" src="" popup="true" mode="defer" width="99%" />
+				</div>
+			</window>
+        </north>
+        
+        <center id="mainContent" autoscroll="true" border="none" style="border:1px solid black;overflow:auto;position:absolute;top:0;left:0;">
+        	<vlayout id="meio" hflex="1" vflex="1" style="overflow:auto;" -->
+        		<!-- include id="include_introducao" src="introducao.zul" vflex="1"/ -->
+        		<!-- vlayout vflex="1">
+					<image src="./imagem/seguranca.png" vflex="2" />
+					<hlayout vflex="1">
+							<vlayout hflex="1">
+								<image src="./imagem/seguranca.png" vflex="1"/>
+								<label value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." vflex="2"/>
+							</vlayout>
+							<vlayout hflex="1">
+								<image src="./imagem/seguranca.png" vflex="1"/>
+								<label value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." vflex="2"/>
+							</vlayout>
+							<vlayout hflex="1">
+								<image src="./imagem/seguranca.png" vflex="1"/>
+								<label value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." vflex="2"/>
+							</vlayout>
+					</hlayout>
+				</vlayout>
+        	</vlayout>
+        </center>
+        
+        <south height="20px" border="none">
+        	<div class="navbar navbar-default navbar-static-top cores-menu-barra" >
+        	</div>
+        </south>
+    </borderlayout -->
+    
+</zk>

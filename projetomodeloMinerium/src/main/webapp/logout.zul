@@ -1,0 +1,20 @@
+<window id="logout" apply="br.com.projetomodelo.controle.auth.LogoutCtr" visible="true">
+	
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;" />
+<link rel="stylesheet" type="text/css" href="css/listDiscussion.css" />
+<title>Logout</title>
+</head>
+<body>
+<h1 align="center">Sessão encerrada</h1>
+<br/>
+<div style="horizontal-align: center">
+	<center>
+		<a href="index.zul" tyle="horizontal-align: center" id="id_entrar"> Entrar </a>
+	</center>
+</div>
+</body>
+</html>
+
+</window>

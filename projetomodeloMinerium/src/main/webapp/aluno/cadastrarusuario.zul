@@ -1,0 +1,67 @@
+<window id="usuario" apply="br.com.projetomodelo.controle.aluno.CadastrarUsuarioCtr" sizable="false" title="Usuário" border="normal" closable="false">
+	
+		<div id="barradebotoes"/>
+	
+		<selecaobox>
+
+			<sylistbox id="listaSelecao" >
+				<auxhead class="cabecalhoPesquisa" if="${sec:isAllGranted('ADMIN')}">
+					<auxheader>
+						<label value="Nome:" />
+						<textboxarg id="nomeArg"></textboxarg>
+					</auxheader>
+				</auxhead>
+				
+				<listhead id="cabecalho">
+					<listheadersort  label="Nome" value="nome" />
+					<listheadersort  label="cpf" value="cpf" />
+					<listheadersort  label="email" value="email" />
+				</listhead>
+				
+				
+				<listitem height="25px">
+					<listcellbind label="nome" />
+					<listcellbind label="cpf" />
+					<listcellbind label="tipoConta" />
+				</listitem>
+				
+			</sylistbox>
+
+		</selecaobox>
+		
+		<manutencaobox>
+			<grid>
+				<columns height="100%">
+					<column align="center" valign="top" style="horizontal-align:center" zclass="x" height="100%" width="60%">
+						  <vbox>
+							<label value="Nome:" />
+							<textboxbind id="nome"/>
+							<label value="Senha:" />
+							<textboxbind id="senha"/>
+							<label value="E-mail:" />
+							<textboxbind id="email"/>
+							<label value="CPF:" />
+							<textboxbind id="cpf"/>
+							<!-- Verificar a questão do carregamento de lookup em ProContextListener -> inicializaLookupsDaAplicacao -->
+							<label value="Tipo de Conta:" />
+							<bandboxbind nomeDoObjeto="classecontrole.objetoAtual.tipoConta" />
+						  </vbox>
+					</column>
+					<column>
+						<vbox>
+							<detbox id="enderecosDet" label="Endereços" nomeDoObjeto="classecontrole.objetoAtual.enderecos">
+								<listboxdet id="enderecos">
+									<listitem>
+										<listcell>
+											<textboxbind nomeDoObjeto="enderecos.endereco" width="60%" />
+										</listcell>
+									</listitem>
+								</listboxdet>
+							</detbox>
+						</vbox>
+					</column>
+				</columns>
+			</grid>
+		</manutencaobox>
+		
+</window>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<popup id="visualizacao_assinatura" width="450px">
+	<listbox id="assinantes_id">
+		<listitem self="@{each='assinante'}" value="@{assinante}">
+			<listcell>
+				<groupbox id="gb" mold="3d" width="100%" open="false">
+					<caption label="@{assinante.nome}">
+						<vbox align="center">
+							<hbox align="center">
+								<image onCreate="classecontrole.atribuiUrlDaImagem(self)" height="40px" width="40px" />
+							</hbox>
+						</vbox>
+					</caption>
+					<hbox align="center">
+						<vbox>
+							<hbox>
+								<label value="Nome:" style="font-weight: bold"></label>
+								<label id="nomeAssinador" value="@{assinante.nome}"></label>
+							</hbox>
+							<hbox>
+								<label value="Data da assinatura:" style="font-weight: bold"></label>
+								<label id="dataAssinatura" value="@{assinante.DataAssinatura}"></label>
+							</hbox>
+							<hbox>
+								<label value="E-mail:" style="font-weight: bold"></label>
+								<label id="email" value="@{assinante.email}"></label>
+							</hbox>
+							<hbox>
+								<label value="Tipo do Certificado:" style="font-weight: bold"></label>
+								<label id="tipoCertificado" value="@{assinante.certificado.tipoCertificado}"></label>
+							</hbox>
+							<hbox >
+									<label  value="Autoridade certificadora do assinante:" style="font-weight: bold"></label>
+								<label id="acAssinate" value="@{assinante.certificado.emissor}"></label>
+							</hbox>
+							<hbox>
+								<label value="Certificado válido de: " style="font-weight: bold"></label>
+								<label value="@{assinante.certificado.dataEmissao}"></label>
+								<label value="até: " style="font-weight: bold"></label>
+								<label value="@{assinante.certificado.dataVencimento}"></label>
+							</hbox>
+							<hbox>
+								<label value="Número de série:" style="font-weight: bold"></label>
+								<label id="numSerie" value="@{assinante.certificado.numeroSerie}"></label>
+							</hbox>
+							<hbox>
+								<label value="Validade:" style="font-weight: bold"></label>
+								<label id="validade" value="Assinatura Íntegra."></label>
+							</hbox>
+							<hbox>
+								<image src="/imagens/arquivo_assinado.png" height="20px" width="20px" />
+								<label value="Assinatura Íntegra."></label>
+							</hbox>
+							<hbox>
+								<image src="/imagens/arquivo_assinado.png" height="20px" width="20px" />
+								<label value="Identidade reconhecida."></label>
+							</hbox>
+						</vbox>
+					</hbox>
+				</groupbox>
+			</listcell>
+		</listitem>
+	</listbox>
+</popup>

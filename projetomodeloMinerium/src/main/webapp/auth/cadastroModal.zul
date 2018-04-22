@@ -1,0 +1,24 @@
+<window id="loginWin" apply="br.com.projetomodelo.controle.auth.LoginCtr" title="Autenticação" border="normal"  
+visible="true" closable="true" position="center,center" action="show:slideDown;hide:slideUp" width="300px">
+	<vlayout>
+		<label id="message" sclass="warn" value="&#160;" />
+		<grid>
+			<columns>
+				<column align="right" hflex="1" />
+				<column hflex="2"/>
+			</columns>
+			<rows>
+				<row>
+					<label value="Usuário:" hflex="1"/>
+					<textbox id="username" hflex="2"/>
+				</row>
+				<row>
+					<label value="Senha:" hflex="1"/>
+					<textbox id="password" type="password" hflex="2"/>
+				</row>
+			</rows>
+		</grid>
+		<button id="logarBtn" forward="form.onOK" label="Entrar" onClick="classecontrole.doLogin()" autodisable="self" sclass="componente-centralizado" />
+		<button id="CadastrarBtn" label="Cadastrar" onClick="classecontrole.doCadastro()" autodisable="self" sclass="componente-centralizado" />
+	</vlayout>
+</window>

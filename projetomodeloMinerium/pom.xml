@@ -1,0 +1,353 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>br.com.test</groupId>
+	<artifactId>projetomodelo</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<properties>
+		<zk.version>8.0.2.2</zk.version>
+		<commons-io>2.4</commons-io>
+		<maven.build.timestamp.format>yyyy-MM-dd</maven.build.timestamp.format>
+		<packname>-${project.version}-FL-${maven.build.timestamp}</packname>
+
+		<version.bouncycastle>1.49</version.bouncycastle>
+		<version.certificacaodigital>1.3.0</version.certificacaodigital>
+		<springsecurity.version>3.1.2.RELEASE</springsecurity.version>
+		<zkel.version>1.1.0</zkel.version>
+		<commons-lang.version>2.4</commons-lang.version>
+		<servlet.version>2.4</servlet.version>
+
+		<ckez.version>4.4.6.1</ckez.version>
+		<minerium.version>1.0.000-SNAPSHOT</minerium.version>
+		<bsh.version>2.0b4</bsh.version>
+		<commons-io.version>2.4</commons-io.version>
+		<filters.version>2.0.235</filters.version>
+		<itext.version>2.1.5</itext.version>
+		<jxl.version>2.6.12</jxl.version>
+		<jcommon.version>1.0.17</jcommon.version>
+		<poi.version>3.7</poi.version>
+		<commons-collections.version>3.2.1</commons-collections.version>
+		<commons-fileupload.version>1.2.2</commons-fileupload.version>
+		<commons-logging.version>1.1.1</commons-logging.version>
+		<commons-codec.version>1.8</commons-codec.version>
+		<jackson-annotations.version>2.5.0</jackson-annotations.version>
+		<jasperreports.version>4.5.1</jasperreports.version>
+		<jackson-databind.version>2.5.1</jackson-databind.version>
+		<jackson-core.version>2.5.1</jackson-core.version>
+		<javassist.version>3.18.2-GA</javassist.version>
+		<gson.version>2.3.1</gson.version>
+		<zsoup.version>1.8.2.5</zsoup.version>
+		<slf4j-api.version>1.7.5</slf4j-api.version>
+		<slf4j-jdk14.version>1.7.5</slf4j-jdk14.version>
+
+	</properties>
+	<packaging>war</packaging>
+	<name>The projetomodelo Project</name>
+	<description>The projetomodelo Project</description>
+	<licenses>
+		<license>
+			<name>GNU LESSER GENERAL PUBLIC LICENSE, Version 3</name>
+			<url>http://www.gnu.org/licenses/lgpl.html</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+	<dependencies>
+		<!-- Spring Security -->
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-config</artifactId>
+		    <version>${springsecurity.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-web</artifactId>
+		    <version>${springsecurity.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>cglib</groupId>
+		    <artifactId>cglib</artifactId>
+		    <version>2.2</version>
+		</dependency>
+		<!-- Fim Spring Security -->
+		
+		<!--ZK Start -->
+		<!-- dependency>
+    		<groupId>org.zkoss.zk</groupId>
+    		<artifactId>zkmax</artifactId>
+    		<version>6.5.1</version>
+    		<exclusions>
+        		<exclusion> 
+          			<groupId>org.zkoss.zkmax</groupId>
+          			<artifactId>zul</artifactId>
+        		</exclusion>
+      		</exclusions>
+		</dependency -->
+		<dependency>
+		    <groupId>org.zkoss.addons</groupId>
+		    <artifactId>zk-bootstrap</artifactId>
+		    <version>1.0.0</version>
+		    <exclusions>
+        		<exclusion> 
+          			<groupId>org.zkoss.zk</groupId>
+          			<artifactId>zul</artifactId>
+        		</exclusion>
+        		<exclusion> 
+          			<groupId>javax.servlet</groupId>
+					<artifactId>servlet-api</artifactId>
+        		</exclusion>
+        		<exclusion> 
+		        	<groupId>org.zkoss.zk</groupId>
+					<artifactId>zkmax</artifactId>
+        		</exclusion>
+        		<exclusion> 
+        			<groupId>commons-io</groupId>
+					<artifactId>commons-io</artifactId>
+        		</exclusion>
+        		<exclusion>
+					<groupId>org.zkoss.zk</groupId>
+					<artifactId>zkex</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>commons-io</groupId>
+					<artifactId>commons-io</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.zkoss.theme</groupId>
+					<artifactId>breeze</artifactId>
+				</exclusion>
+      		</exclusions>
+		</dependency>
+		<!-- dependency>
+		    <groupId>org.zkoss.theme</groupId>
+		    <artifactId>zktheme</artifactId>
+		    <version>8.0.2.2</version>
+		    <type>pom</type -->
+		<!-- dependency>
+		    <groupId>org.zkoss.theme</groupId>
+		    <artifactId>silvertail</artifactId>
+		    <version>8.0.2.2</version -->
+	    <!-- dependency>
+		    <groupId>org.zkoss.theme</groupId>
+		    <artifactId>sapphire</artifactId>
+		    <version>8.0.2.2</version -->
+		<!-- dependency>
+		    <groupId>org.zkoss.theme</groupId>
+		    <artifactId>breeze</artifactId>
+		    <version>5.0.11</version -->
+		<dependency>
+		    <groupId>org.zkoss.theme</groupId>
+		    <artifactId>atlantic</artifactId>
+		    <version>1.1.6</version>
+		    <exclusions>
+		    	<exclusion>
+          			<groupId>org.zkoss.zk</groupId>
+					<artifactId>zk</artifactId>
+        		</exclusion>
+        		<exclusion> 
+          			<groupId>org.zkoss.zk</groupId>
+					<artifactId>zul</artifactId>
+        		</exclusion>
+        		<exclusion> 
+          			<groupId>org.zkoss.zk</groupId>
+					<artifactId>zkmax</artifactId>
+        		</exclusion>
+        	</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.zkoss.zk</groupId>
+			<artifactId>zkbind</artifactId>
+			<version>${zk.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.zkoss.calendar</groupId>
+		    <artifactId>calendar</artifactId>
+		    <version>2.1.5</version>
+		</dependency>
+		<dependency>
+			<groupId>org.zkoss.zk</groupId>
+			<artifactId>zkplus</artifactId>
+			<version>${zk.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.zkoss.zk</groupId>
+			<artifactId>zhtml</artifactId>
+			<version>${zk.version}</version>
+		</dependency>
+		<!--ZK End -->
+		<!--Minerium Start  -->
+		<dependency>
+			<groupId>br.mg.gov.prodemge.prodigio</groupId>
+			<artifactId>minerium-comum</artifactId>
+			<version>${minerium.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>br.mg.gov.prodemge.prodigio</groupId>
+			<artifactId>minerium-dominio</artifactId>
+			<version>${minerium.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>br.mg.gov.prodemge.prodigio</groupId>
+			<artifactId>minerium-negocio</artifactId>
+			<version>${minerium.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>br.mg.gov.prodemge.prodigio</groupId>
+			<artifactId>minerium-web-zk</artifactId>
+			<version>${minerium.version}</version>
+		</dependency>
+		<!--Minerium End  -->
+	
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>${commons-io}</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>commons-beanutils</groupId>
+		    <artifactId>commons-beanutils</artifactId>
+		    <version>1.8.3</version>
+		</dependency>
+				
+		
+		<dependency>
+			<groupId>org.jboss.spec.javax.ws.rs</groupId>
+			<artifactId>jboss-jaxrs-api_1.1_spec</artifactId>
+			<scope>provided</scope>
+			<version>1.0.1.Final</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.6.2</version>
+		</dependency>
+		
+		<dependency>
+    		<groupId>org.jfree</groupId>
+    		<artifactId>jfreechart</artifactId>
+    		<version>1.0.19</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>javax.enterprise</groupId>
+			<artifactId>cdi-api</artifactId>
+			<scope>provided</scope>
+			<version>1.0-SP4</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.jboss.spec.javax.ejb</groupId>
+			<artifactId>jboss-ejb-api_3.1_spec</artifactId>
+			<scope>provided</scope>
+			<version>1.0.2.Final</version>
+		</dependency>
+		
+	<!-- web-zk -->
+		<dependency>
+			<groupId>org.jboss.spec.javax.servlet</groupId>
+			<artifactId>jboss-servlet-api_3.0_spec</artifactId>
+			<scope>provided</scope>
+			<version>1.0.2.Final</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>net.sourceforge.jexcelapi</groupId>
+			<artifactId>jxl</artifactId>
+			<version>${jxl.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>br.mg.gov.prodemge.certificacao</groupId>
+			<artifactId>certificado-digital-api</artifactId>
+			<version>${version.certificacaodigital}</version>
+		</dependency>
+		<dependency>
+			<groupId>br.mg.gov.prodemge.certificacao</groupId>
+			<artifactId>certificado-digital-nucleo</artifactId>
+			<version>${version.certificacaodigital}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.bouncycastle</groupId>
+			<artifactId>bcprov-jdk15on-assinado-prodemge</artifactId>
+			<version>${version.bouncycastle}</version>
+		</dependency>
+		
+	<!-- web-zk -->
+		<dependency>
+			<groupId>org.hibernate.javax.persistence</groupId>
+			<artifactId>hibernate-jpa-2.0-api</artifactId>
+			<scope>provided</scope>
+			<version>1.0.1.Final</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<scope>provided</scope>
+			<version>4.2.0.Final</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator-annotation-processor</artifactId>
+			<scope>provided</scope>
+			<version>4.2.0.Final</version>
+		</dependency>
+	</dependencies>
+	<build>
+		<finalName>${project.artifactId}</finalName>
+		<plugins>
+			<!-- Run with Jetty -->
+			<plugin>
+				<groupId>org.mortbay.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>7.6.8.v20121106</version>
+				<configuration>
+					<webAppConfig>
+						<contextPath>/${project.artifactId}</contextPath>
+						<allowDuplicateFragmentNames>true</allowDuplicateFragmentNames>
+					</webAppConfig>
+					<scanIntervalSeconds>5</scanIntervalSeconds>
+				</configuration>
+			</plugin>
+			<!-- Compile java -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.3</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+			<!-- Build war -->
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<groupId>org.apache.maven.plugins</groupId>
+				<version>2.1.1</version>
+			</plugin>
+			<!-- Pack zips -->
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.2</version>
+				<executions>
+					<execution>
+						<id>webapp</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+						<configuration>
+							<finalName>projetomodelo${packname}</finalName>
+							<appendAssemblyId>false</appendAssemblyId>
+							<descriptors>
+								<descriptor>src/main/assembly/webapp.xml</descriptor>
+							</descriptors>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

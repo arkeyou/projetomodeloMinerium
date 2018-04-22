@@ -1,0 +1,27 @@
+<window id="loginWin" apply="br.com.projetomodelo.controle.auth.LoginCtr" title="Autenticação" border="normal"  
+visible="true" closable="true" position="center,center" action="show:slideIn;hide:slideOut" width="300px">
+	<html:form action="/projetomodelo/j_spring_security_check" method="POST" xmlns:html="native">
+	<vlayout>
+		<label id="message" value="&#160;" sclass="warn componente-centralizado" />
+		<grid>
+			<columns>
+				<column align="right" hflex="1" />
+				<column hflex="2"/>
+			</columns>
+			<rows>
+				<row>
+					<label value="Usuário:" hflex="1"/>
+					<textbox id="j_username" name="j_username" hflex="2"/>
+				</row>
+				<row>
+					<label value="Senha:" hflex="1"/>
+					<textbox id="j_password" name="j_password" type="password" hflex="2"/>
+				</row>
+			</rows>
+		</grid>
+		<!-- button type="submit" label="Submit" autodisable="self" sclass="componente-centralizado" / -->
+		<button id="logarBtn" forward="form.onOK" onClick="classecontrole.doLoginAuthenticate()" label="Entrar" autodisable="self" sclass="componente-centralizado" /> 
+		<button id="CadastrarBtn" label="Cadastrar" onClick="classecontrole.doCadastro()" autodisable="self" sclass="componente-centralizado" />
+	</vlayout>
+	</html:form>
+</window>
