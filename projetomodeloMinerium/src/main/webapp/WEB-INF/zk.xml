@@ -3,12 +3,12 @@
 <zk>
 	<!-- [Optional]
 	Uncomment if you want to defines the application's name 
-	
+	-->
 	<preference>
 		<name>org.zkoss.zk.ui.WebApp.name</name>
-		<value>projetomodelo</value>
+		<value>projetomodeloMinerium</value>
 	</preference>
-	-->
+	
 	<!-- device-config>
 		<device-type>ajax</device-type -->
 		<!-- <server-push-class>org.zkoss.zk.ui.impl.PollingServerPush</server-push-class> -->
