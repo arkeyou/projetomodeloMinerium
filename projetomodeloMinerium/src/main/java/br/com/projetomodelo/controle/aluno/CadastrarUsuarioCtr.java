@@ -9,6 +9,7 @@ import org.zkoss.zk.ui.Component;
 import br.com.projetomodelo.controle.ProjetoModeloBaseCtr;
 import br.com.projetomodelo.entidades.aluno.UsuarioVO;
 import br.com.projetomodelo.enums.TipoContaEnum;
+import br.gov.prodigio.controle.componente.Bandboxbind;
 
 public class CadastrarUsuarioCtr extends ProjetoModeloBaseCtr<UsuarioVO> {
 
@@ -18,7 +19,7 @@ public class CadastrarUsuarioCtr extends ProjetoModeloBaseCtr<UsuarioVO> {
 		pesquisar();
 	}
 	
-	public List<TipoContaEnum> getListaTipoContaEnum() {
+	public List<TipoContaEnum> listarTipoContaEnum(Bandboxbind bandbox) {
 		TipoContaEnum[] values = TipoContaEnum.values();
 		ArrayList<TipoContaEnum> arrayList = new ArrayList<TipoContaEnum>(Arrays.asList(values));
 		return arrayList;

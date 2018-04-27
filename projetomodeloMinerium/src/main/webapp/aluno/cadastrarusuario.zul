@@ -44,7 +44,7 @@
 							<textboxbind id="cpf"/>
 							<!-- Verificar a questão do carregamento de lookup em ProContextListener -> inicializaLookupsDaAplicacao -->
 							<label value="Tipo de Conta:" />
-							<bandboxbind nomeDoObjeto="classecontrole.objetoAtual.tipoConta" />
+							<bandboxbind id="tipoConta" nomeDoObjeto="classecontrole.objetoAtual.tipoConta" metodoFiltro="listarTipoContaEnum"/>
 						  </vbox>
 					</column>
 					<column>
