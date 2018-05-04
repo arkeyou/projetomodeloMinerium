@@ -1,11 +1,18 @@
 package br.com.projetomodelo.controle;
 
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.encoders.EncoderUtil;
+import org.jfree.chart.encoders.ImageFormat;
+import org.jfree.chart.plot.PiePlot3D;
+import org.jfree.data.general.DefaultPieDataset;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.access.AccessDeniedException;
@@ -14,11 +21,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.access.WebInvocationPrivilegeEvaluator;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
+import org.zkoss.image.AImage;
 import org.zkoss.zk.ui.AbstractComponent;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
+import org.zkoss.zul.Image;
 import org.zkoss.zul.Menuitem;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
@@ -201,6 +210,28 @@ public class WindowIntroducaoModelo extends WindowIntroducao {
 		Window window = (Window)Executions.createComponents("/auth/loginModal.zul", null, null);
         window.doModal();
 	}
+	
+	public void montaGrafico() throws Exception {
+		DefaultPieDataset pieDataset = new DefaultPieDataset();
+		pieDataset.setValue("C/C++", new Double(17.5));
+		pieDataset.setValue("PHP", new Double(32.5));
+		pieDataset.setValue("Java", new Double(43.2));
+		pieDataset.setValue("Visual Basic", new Double(10));
+		
+		JFreeChart chart = ChartFactory.createPieChart3D("Sample Pie Chart 3D", pieDataset,true,true,true);
+		PiePlot3D plot = (PiePlot3D) chart.getPlot();
+		plot.setForegroundAlpha(0.5f);
+		BufferedImage bi = chart.createBufferedImage(500, 300, BufferedImage.TRANSLUCENT , null);
+		byte[] bytes = EncoderUtil.encode(bi, ImageFormat.PNG, true);
+		
+		Component meio = getTela().getFellow("meio");
+		AImage image = new AImage("Pie Chart", bytes);
+		Image myimage = new Image();
+		myimage.setContent(image);
+		
+		meio.appendChild(myimage);
+	}
+
 	
 	@Override
 	public void logout() {
