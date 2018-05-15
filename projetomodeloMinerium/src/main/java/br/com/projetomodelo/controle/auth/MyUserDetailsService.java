@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import br.com.projetomodelo.entidades.aluno.UsuarioVO;
 import br.gov.prodigio.comuns.IProFacade;
 import br.gov.prodigio.comuns.utils.ProConfiguracao;
+import br.gov.prodigio.persistencia.ProDAOHelper;
 
 
 /**
@@ -82,7 +83,13 @@ public class MyUserDetailsService implements UserDetailsService {
 
 	private IProFacade recuperaInterfacePersistencia() throws Exception {
 		ProConfiguracao config = new ProConfiguracao();
-		String lookupJndiNameRemote2 = config.getPropriedade("projetomodeloMineriu.ejbFacadeJndiLookupRemote2");
+		//String lookupJndiNameRemote2 = config.getPropriedade("projetomodeloMineriu.ejbFacadeJndiLookupRemote2");
+
+		String loader = ProDAOHelper.class.getClassLoader().toString();
+		String nomeCompletoDaAplicacao = loader.split("deployment.")[1];
+		String nomePrincipal = nomeCompletoDaAplicacao.contains(".ear:main") ? nomeCompletoDaAplicacao.split(".ear:main")[0] : nomeCompletoDaAplicacao.split(".war:main")[0];
+		
+		String lookupJndiNameRemote2 = config.getPropriedade(nomePrincipal.substring(0, nomePrincipal.length()-1)+".ejbFacadeJndiLookupRemote2");
 
 		Context context = new InitialContext();
 
