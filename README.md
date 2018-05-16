@@ -1,6 +1,6 @@
 # projetomodeloMinerium
 * Importar "projetomodeloMinerium" do github.com
-* Desconectar o projeto do github
+* Desconectar o projeto do github e remover do eclipse
 * Trocar nome da pasta pelo sistema de arquivos
 * Importar no eclipse e alterar o nome do projeto F2
 * Utilizar Search > File para pequisar todos os locais onde o nome do projeto ("projetomodeloMinerium") é utilizado
