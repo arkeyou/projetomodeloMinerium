@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.codec.binary.Base64;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.encoders.EncoderUtil;
@@ -27,6 +29,7 @@ import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
+import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zul.Image;
 import org.zkoss.zul.Menuitem;
 import org.zkoss.zul.Messagebox;
@@ -48,6 +51,7 @@ import br.gov.prodemge.ssc.interfaces.IUsuarioUnidadePapel;
 import br.gov.prodigio.comum.ContextParameters;
 import br.gov.prodigio.comuns.IProFacade;
 import br.gov.prodigio.controle.WindowIntroducao;
+import br.gov.prodigio.visao.helper.ProHelperView;
 import br.gov.prodigio.visao.helper.ProMessageHelper;
 
 public class WindowIntroducaoModelo extends WindowIntroducao {
@@ -55,6 +59,22 @@ public class WindowIntroducaoModelo extends WindowIntroducao {
 	private static final long serialVersionUID = -5908637925748107094L;
 	private static final Logger log = LoggerFactory.getLogger(WindowIntroducaoModelo.class);
 
+	@Override
+	public void doAfterCompose(Component comp) throws Exception {
+		super.doAfterCompose(comp);
+		
+		//Controla o evento avançar e voltar do browser history
+		desktop.setBookmark("/");
+		page.addEventListener(Events.ON_BOOKMARK_CHANGE, e -> { 
+		               	 if (getTela().getDesktop().getBookmark()!=null && !getTela().getDesktop().getBookmark().equals("/")) {
+		                	Map attributes = getTela().getAttributes(Component.SESSION_SCOPE);
+		             		ProHelperView.insereNovoConteudoNoCentroDaJanela(new String(Base64.decodeBase64(getTela().getDesktop().getBookmark())), getTela(), attributes);
+		            	 } else {
+		            		 Executions.sendRedirect("/");
+		            	 }
+		         	});
+	}
+	
 	@Deprecated
 	public void abrir(Menuitem itemDeMenuClicado) {
 //		page.getDesktop().getExecution();
@@ -62,6 +82,10 @@ public class WindowIntroducaoModelo extends WindowIntroducao {
 //		page.getDesktop().getWebApp().getNativeContext();
 //		page.getDesktop().getFirstPage().getRequestPath().equals("/index.zul");
 		validateSpringPermission("/"+(String) itemDeMenuClicado.getAttribute("urlcasodeuso"));
+		abrir((AbstractComponent)itemDeMenuClicado);
+		
+		//Browser history
+		desktop.setBookmark(Base64.encodeBase64String((("/"+(String) itemDeMenuClicado.getAttribute("urlcasodeuso")).getBytes())));
 		abrir((AbstractComponent)itemDeMenuClicado);
 	}
 	
