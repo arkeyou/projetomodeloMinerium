@@ -67,6 +67,7 @@ public class WindowIntroducaoModelo extends WindowIntroducao {
 		desktop.setBookmark("/");
 		page.addEventListener(Events.ON_BOOKMARK_CHANGE, e -> { 
 		               	 if (getTela().getDesktop().getBookmark()!=null && !getTela().getDesktop().getBookmark().equals("/")) {
+		               		validateSpringPermission(new String(Base64.decodeBase64(getTela().getDesktop().getBookmark())));
 		                	Map attributes = getTela().getAttributes(Component.SESSION_SCOPE);
 		             		ProHelperView.insereNovoConteudoNoCentroDaJanela(new String(Base64.decodeBase64(getTela().getDesktop().getBookmark())), getTela(), attributes);
 		            	 } else {
