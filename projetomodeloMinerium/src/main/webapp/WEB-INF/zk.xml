@@ -25,4 +25,8 @@
 		<exception-type>org.springframework.security.access.AccessDeniedException</exception-type>
 		<location>/errors/handleAccessDenied.zul</location>
 	</error-page>
+	<error-page>
+    	<exception-type>java.lang.Throwable</exception-type>    
+    	<location>/error.zul</location>    
+</error-page>
 </zk>

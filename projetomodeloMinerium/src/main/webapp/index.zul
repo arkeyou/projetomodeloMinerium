@@ -4,7 +4,39 @@
 <?taglib uri="/WEB-INF/security.tld" prefix="sec"?>
 	
 	<vlayout>
-		<window id="principal" apply="br.com.projetomodelo.controle.WindowIntroducaoModelo" width="100%" height="60px" border="1">
+		<window id="principal" apply="br.com.projetomodelo.controle.WindowIntroducaoModelo" width="100%" height="60px" border="1" xmlns:w="http://www.zkoss.org/2005/zk/client">
+<script type="text/javascript" defer="true"><![CDATA[
+                                        
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-119419092-1', 'auto');  // Replace with your property ID.
+ga('send', 'pageview', );
+
+var auBfSend = zAu.beforeSend;
+zAu.beforeSend = function (uri, req, dt) {
+ try {
+  var target = req.target;
+  if (target.id) {
+   var data = req.data||{},value = data.items && data.items[0]?data.items[0].id:data.value;
+   //pageTracker._trackPageview((target.desktop?target.desktop.requestPath+"("+jQuery(".z-window-header")[0].innerHTML+")":"") + "/" + target.id + "(" + target.widgetName + ")" + "/" + req.name + (value?"/"+value:""));
+   ga('send', 'pageview', ((target.desktop?target.desktop.requestPath+"("+jQuery(".z-window-header")[0].innerHTML+")":"") + "/" + target.id + "(" + target.widgetName + ")" + "/" + req.name + (value?"/"+value:"")));
+   console.log(target);
+  }
+ } catch (e) {
+ }
+ return auBfSend(uri, req, dt);
+};
+
+jQuery(".z-menuitem-content").each(function( i, val){
+	//jQuery(val).attr("onClick", "alert(jQuery(this).find('.z-menuitem-text')[0].innerHTML)");
+	jQuery(val).attr("onClick", "ga('send', 'pageview', jQuery(this).find('.z-menuitem-text')[0].innerHTML)");
+});
+]]></script>
+
+		
 			<div class="navbar navbar-default navbar-static-top cores-menu-barra">
 				
 				<a id="textobarra" class="navbar-brand logo" href="/">XXXXYYYYYY</a>

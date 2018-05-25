@@ -1,5 +1,9 @@
-<vlayout>
-	<image src="./imagem/seguranca.png" height="300px" width="300px"/>
+<vlayout xmlns:n="xhtml">
+	<!-- image src="./imagem/seguranca.png" height="300px" width="300px"/-->
+	
+		<n:video width="320" height="240" >
+	  <n:source src="http://mirror.cessen.com/blender.org/peach/trailer/trailer_iphone.m4v" />
+	  </n:video>
 	<hlayout>
 			<vlayout hflex="1">
 				<image src="./imagem/seguranca.png" height="150px" width="150px"/>
