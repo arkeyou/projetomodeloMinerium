@@ -1,9 +1,83 @@
 <vlayout xmlns:n="xhtml">
-	<!-- image src="./imagem/seguranca.png" height="300px" width="300px"/-->
+<script type="text/javascript" defer="true"><![CDATA[
+var stream;
+
+function hasUserMedia() { 
+   //check if the browser supports the WebRTC 
+   return !!(navigator.getUserMedia || navigator.webkitGetUserMedia || 
+      navigator.mozGetUserMedia); 
+} 
+ 
+if (hasUserMedia()) {
+   navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia
+      || navigator.mozGetUserMedia; 
+		
+   //enabling video and audio channels 
+   navigator.getUserMedia({ video: true, audio: true }, function (s) { 
+      stream = s; 
+      var video = document.querySelector('video'); 
+		
+      //inserting our stream to the video tag     
+      video.src = window.URL.createObjectURL(stream); 
+   }, function (err) {}); 
 	
-		<n:video width="320" height="240" >
-	  <n:source src="http://mirror.cessen.com/blender.org/peach/trailer/trailer_iphone.m4v" />
-	  </n:video>
+} else { 
+   alert("WebRTC is not supported"); 
+}
+  
+btnGetAudioTracks.addEventListener("click", function(){ 
+   console.log("getAudioTracks"); 
+   console.log(stream.getAudioTracks()); 
+});
+  
+btnGetTrackById.addEventListener("click", function(){ 
+   console.log("getTrackById"); 
+   console.log(stream.getTrackById(stream.getAudioTracks()[0].id)); 
+});
+  
+btnGetTracks.addEventListener("click", function(){ 
+   console.log("getTracks()"); 
+   console.log(stream.getTracks()); 
+});
+ 
+btnGetVideoTracks.addEventListener("click", function(){ 
+   console.log("getVideoTracks()"); 
+   console.log(stream.getVideoTracks()); 
+});
+
+btnRemoveAudioTrack.addEventListener("click", function(){ 
+   console.log("removeAudioTrack()"); 
+   stream.removeTrack(stream.getAudioTracks()[0]); 
+});
+  
+btnRemoveVideoTrack.addEventListener("click", function(){ 
+   console.log("removeVideoTrack()"); 
+   stream.removeTrack(stream.getVideoTracks()[0]); 
+});
+]]>
+</script>
+
+	<!-- image src="./imagem/seguranca.png" height="300px" width="300px"/-->
+	<div>
+		<n:video width="320" height="240" autoplay="" style="
+    display: block;
+    margin-left: auto;
+    margin-right: auto;">
+		  <n:source src="http://mirror.cessen.com/blender.org/peach/trailer/trailer_iphone.m4v" ></n:source>
+		</n:video>
+		
+		<div><n:button id = "btnGetAudioTracks">getAudioTracks()
+         </n:button></div> 
+      <div><n:button id = "btnGetTrackById">getTrackById()
+         </n:button></div> 
+      <div><n:button id = "btnGetTracks">getTracks()</n:button></div> 
+      <div><n:button id = "btnGetVideoTracks">getVideoTracks()
+         </n:button></div> 
+      <div><n:button id = "btnRemoveAudioTrack">removeTrack() - audio
+         </n:button></div> 
+      <div><n:button id = "btnRemoveVideoTrack">removeTrack() - video
+         </n:button></div> 
+	</div> 
 	<hlayout>
 			<vlayout hflex="1">
 				<image src="./imagem/seguranca.png" height="150px" width="150px"/>
