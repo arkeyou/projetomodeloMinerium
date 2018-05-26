@@ -1,232 +1,328 @@
-<vlayout xmlns:n="xhtml">
-<script type="text/javascript" defer="true"><![CDATA[
+
+/*
+
+*  Copyright (c) 2015 The WebRTC project authors. All Rights Reserved.
+
+*
+
+*  Use of this source code is governed by a BSD-style license
+
+*  that can be found in the LICENSE file in the root of the source
+
+*  tree.
+
+*/
+
+
+
+// This code is adapted from
+
+// https://rawgit.com/Miguelao/demos/master/mediarecorder.html
+
+
 
 'use strict';
 
+
+
 /* globals MediaRecorder */
 
+
+
 var mediaSource = new MediaSource();
+
 mediaSource.addEventListener('sourceopen', handleSourceOpen, false);
+
 var mediaRecorder;
+
 var recordedBlobs;
+
 var sourceBuffer;
 
+
+
 var gumVideo = document.querySelector('video#gum');
+
 var recordedVideo = document.querySelector('video#recorded');
 
+
+
 var recordButton = document.querySelector('button#record');
+
 var playButton = document.querySelector('button#play');
+
 var downloadButton = document.querySelector('button#download');
+
 recordButton.onclick = toggleRecording;
+
 playButton.onclick = play;
+
 downloadButton.onclick = download;
 
+
+
 // window.isSecureContext could be used for Chrome
+
 var isSecureOrigin = location.protocol === 'https:' ||
+
 location.hostname === 'localhost';
+
 if (!isSecureOrigin) {
+
   alert('getUserMedia() must be run from a secure origin: HTTPS or localhost.' +
+
     '\n\nChanging protocol to HTTPS');
+
   location.protocol = 'HTTPS';
+
 }
+
+
 
 var constraints = {
+
   audio: true,
+
   video: true
+
 };
 
+
+
 function handleSuccess(stream) {
+
   recordButton.disabled = false;
+
   console.log('getUserMedia() got stream: ', stream);
+
   window.stream = stream;
+
   gumVideo.srcObject = stream;
+
 }
+
+
 
 function handleError(error) {
+
   console.log('navigator.getUserMedia error: ', error);
+
 }
+
+
 
 navigator.mediaDevices.getUserMedia(constraints).
+
     then(handleSuccess).catch(handleError);
 
+
+
 function handleSourceOpen(event) {
+
   console.log('MediaSource opened');
+
   sourceBuffer = mediaSource.addSourceBuffer('video/webm; codecs="vp8"');
+
   console.log('Source buffer: ', sourceBuffer);
+
 }
+
+
 
 recordedVideo.addEventListener('error', function(ev) {
+
   console.error('MediaRecording.recordedMedia.error()');
+
   alert('Your browser can not play\n\n' + recordedVideo.src
+
     + '\n\n media clip. event: ' + JSON.stringify(ev));
+
 }, true);
 
+
+
 function handleDataAvailable(event) {
+
   if (event.data && event.data.size > 0) {
+
     recordedBlobs.push(event.data);
+
   }
+
 }
+
+
 
 function handleStop(event) {
+
   console.log('Recorder stopped: ', event);
+
 }
+
+
 
 function toggleRecording() {
+
   if (recordButton.textContent === 'Start Recording') {
+
     startRecording();
+
   } else {
+
     stopRecording();
+
     recordButton.textContent = 'Start Recording';
+
     playButton.disabled = false;
+
     downloadButton.disabled = false;
+
   }
+
 }
+
+
 
 function startRecording() {
+
   recordedBlobs = [];
+
   var options = {mimeType: 'video/webm;codecs=vp9'};
+
   if (!MediaRecorder.isTypeSupported(options.mimeType)) {
+
     console.log(options.mimeType + ' is not Supported');
+
     options = {mimeType: 'video/webm;codecs=vp8'};
+
     if (!MediaRecorder.isTypeSupported(options.mimeType)) {
+
       console.log(options.mimeType + ' is not Supported');
+
       options = {mimeType: 'video/webm'};
+
       if (!MediaRecorder.isTypeSupported(options.mimeType)) {
+
         console.log(options.mimeType + ' is not Supported');
+
         options = {mimeType: ''};
+
       }
+
     }
+
   }
+
   try {
+
     mediaRecorder = new MediaRecorder(window.stream, options);
+
   } catch (e) {
+
     console.error('Exception while creating MediaRecorder: ' + e);
+
     alert('Exception while creating MediaRecorder: '
+
       + e + '. mimeType: ' + options.mimeType);
+
     return;
+
   }
+
   console.log('Created MediaRecorder', mediaRecorder, 'with options', options);
+
   recordButton.textContent = 'Stop Recording';
+
   playButton.disabled = true;
+
   downloadButton.disabled = true;
+
   mediaRecorder.onstop = handleStop;
+
   mediaRecorder.ondataavailable = handleDataAvailable;
+
   mediaRecorder.start(10); // collect 10ms of data
+
   console.log('MediaRecorder started', mediaRecorder);
+
 }
+
+
 
 function stopRecording() {
+
   mediaRecorder.stop();
+
   console.log('Recorded Blobs: ', recordedBlobs);
+
   recordedVideo.controls = true;
+
 }
+
+
 
 function play() {
+
   var superBuffer = new Blob(recordedBlobs, {type: 'video/webm'});
+
   recordedVideo.src = window.URL.createObjectURL(superBuffer);
+
   // workaround for non-seekable video taken from
+
   // https://bugs.chromium.org/p/chromium/issues/detail?id=642012#c23
+
   recordedVideo.addEventListener('loadedmetadata', function() {
+
     if (recordedVideo.duration === Infinity) {
+
       recordedVideo.currentTime = 1e101;
+
       recordedVideo.ontimeupdate = function() {
+
         recordedVideo.currentTime = 0;
+
         recordedVideo.ontimeupdate = function() {
+
           delete recordedVideo.ontimeupdate;
+
           recordedVideo.play();
+
         };
+
       };
+
     }
+
   });
+
 }
+
+
 
 function download() {
+
   var blob = new Blob(recordedBlobs, {type: 'video/webm'});
+
   var url = window.URL.createObjectURL(blob);
+
   var a = document.createElement('a');
+
   a.style.display = 'none';
+
   a.href = url;
+
   a.download = 'test.webm';
+
   document.body.appendChild(a);
+
   a.click();
+
   setTimeout(function() {
+
     document.body.removeChild(a);
+
     window.URL.revokeObjectURL(url);
+
   }, 100);
+
 }
-
-	btnGetAudioTracks.addEventListener("click", function(){ 
-	   console.log("getAudioTracks"); 
-	   console.log(stream.getAudioTracks()); 
-	});
-	  
-	btnGetTrackById.addEventListener("click", function(){ 
-	   console.log("getTrackById"); 
-	   console.log(stream.getTrackById(stream.getAudioTracks()[0].id)); 
-	});
-	  
-	btnGetTracks.addEventListener("click", function(){ 
-	   console.log("getTracks()"); 
-	   console.log(stream.getTracks()); 
-	});
-	 
-	btnGetVideoTracks.addEventListener("click", function(){ 
-	   console.log("getVideoTracks()"); 
-	   console.log(stream.getVideoTracks()); 
-	});
-
-	btnRemoveAudioTrack.addEventListener("click", function(){ 
-	   console.log("removeAudioTrack()"); 
-	   stream.removeTrack(stream.getAudioTracks()[0]); 
-	});
-	  
-	btnRemoveVideoTrack.addEventListener("click", function(){ 
-	   console.log("removeVideoTrack()"); 
-	   stream.removeTrack(stream.getVideoTracks()[0]); 
-	});
-]]>
-</script>
-
-	<!-- image src="./imagem/seguranca.png" height="300px" width="300px"/-->
-	<div>
-		<n:video id="gum" width="320" height="240" autoplay="" style="
-    display: block;
-    margin-left: auto;
-    margin-right: auto;">
-		  <n:source src="http://mirror.cessen.com/blender.org/peach/trailer/trailer_iphone.m4v" ></n:source>
-		</n:video>
-		<n:video id="recorded" loop="" controls=""></n:video>
-
-    <div>
-      <n:button id="record" disabled="">Start Recording</n:button>
-      <n:button id="play" disabled="">Play</n:button>
-      <n:button id="download" disabled="">Download</n:button>
-    </div>
-		
-		<div><n:button id = "btnGetAudioTracks">getAudioTracks()
-         </n:button></div> 
-      <div><n:button id = "btnGetTrackById">getTrackById()
-         </n:button></div> 
-      <div><n:button id = "btnGetTracks">getTracks()</n:button></div> 
-      <div><n:button id = "btnGetVideoTracks">getVideoTracks()
-         </n:button></div> 
-      <div><n:button id = "btnRemoveAudioTrack">removeTrack() - audio
-         </n:button></div> 
-      <div><n:button id = "btnRemoveVideoTrack">removeTrack() - video
-         </n:button></div> 
-	</div> 
-	<hlayout>
-			<vlayout hflex="1">
-				<image src="./imagem/seguranca.png" height="150px" width="150px"/>
-				<label value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."/>
-			</vlayout>
-			<vlayout hflex="1">
-				<image src="./imagem/seguranca.png" height="150px" width="150px"/>
-				<label value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."/>
-			</vlayout>
-			<vlayout hflex="1">
-				<image src="./imagem/seguranca.png" height="150px" width="150px"/>
-				<label value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."/>
-			</vlayout>
-	</hlayout>
-</vlayout>
