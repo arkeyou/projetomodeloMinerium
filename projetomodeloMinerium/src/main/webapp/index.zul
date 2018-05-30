@@ -56,6 +56,9 @@ jQuery(".z-menuitem-content").each(function( i, val){
 							<custom-attributes urlcasodeuso="aluno/usuario.zul"/>
 			            </menuitem>
 						<menuitem id="menuPlanoEstudo" label="Plano de Estudo" visible="true" if="${sec:isAllGranted('RESTRITO')}" />
+						<menuitem id="WebRTC" label="WebRTC" visible="true" onClick="classecontrole.abrir(self)" >
+							<custom-attributes urlcasodeuso="webRTC.zul"/>
+						</menuitem>
 					</menubar>
 				</div>
 				
