@@ -189,14 +189,16 @@ function download() {
 
 	<!-- image src="./imagem/seguranca.png" height="300px" width="300px"/-->
 	<div>
-		<n:video id="gum" width="320" height="240" autoplay="" style="
-    display: block;
-    margin-left: auto;
-    margin-right: auto;">
-		  <n:source src="http://mirror.cessen.com/blender.org/peach/trailer/trailer_iphone.m4v" ></n:source>
-		</n:video>
-		<n:video id="recorded" loop="" controls=""></n:video>
-
+		<div>
+			<n:video id="gum" width="320" height="240" autoplay="" style="
+	    /*display: block;*/
+	    margin-left: auto;
+	    margin-right: auto;">
+			  <n:source src="http://mirror.cessen.com/blender.org/peach/trailer/trailer_iphone.m4v" ></n:source>
+			</n:video>
+			<n:video id="recorded" loop="" controls=""></n:video>
+			<n:p style=" position:absolute;    top:0;    left:0;   z-index:1;     color: yellow;"> testando posição</n:p>
+		</div>
     <div>
       <n:button id="record" disabled="">Start Recording</n:button>
       <n:button id="play" disabled="">Play</n:button>
